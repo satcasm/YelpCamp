@@ -18,7 +18,6 @@ db.once("open", () => {
 
 const sample = array => array[Math.floor(Math.random() * array.length)];
 
-
 const seedDB = async () => {
     await Campground.deleteMany({});
     for (let i = 0; i < 300; i++) {
@@ -32,7 +31,7 @@ const seedDB = async () => {
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
             price,
-            createdAt : "ISODate(2021-01-09T10:22:44.263Z)",
+            createdAt: "ISODate(2021-01-09T10:22:44.263Z)",
             geometry: {
                 type: "Point",
                 coordinates: [

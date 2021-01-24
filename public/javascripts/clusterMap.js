@@ -8,21 +8,17 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
-
-
-
 map.on('load', function () {
     // Add a new source from our GeoJSON data and
     // set the 'cluster' option to true. GL-JS will
     // add the point_count property to your source data.
     map.addSource('campgrounds', {
-        type: 'geojson', 
+        type: 'geojson',
         data: campgrounds,
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
     });
-
     map.addLayer({
         id: 'clusters',
         type: 'circle',
@@ -51,7 +47,6 @@ map.on('load', function () {
             ]
         }
     });
-
     map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
@@ -63,7 +58,6 @@ map.on('load', function () {
             'text-size': 12
         }
     });
-
     map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
@@ -76,7 +70,6 @@ map.on('load', function () {
             'circle-stroke-color': '#fff'
         }
     });
-
     // inspect a cluster on click
     map.on('click', 'clusters', function (e) {
         const features = map.queryRenderedFeatures(e.point, {
@@ -95,7 +88,6 @@ map.on('load', function () {
             }
         );
     });
-
     // When a click event occurs on a feature in
     // the unclustered-point layer, open a popup at
     // the location of the feature, with
@@ -116,7 +108,6 @@ map.on('load', function () {
             .setHTML(popUpMarkup)
             .addTo(map);
     });
-
     map.on('mouseenter', 'clusters', function () {
         map.getCanvas().style.cursor = 'pointer';
     });

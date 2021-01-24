@@ -10,6 +10,7 @@ const upload = multer({
     storage,
     limits: { fileSize: 500000, files: 5 }
 });
+
 const Campground = require('../models/campground');
 
 const uploadFiles = async (req, res, next) => {

@@ -42,6 +42,7 @@ module.exports.logout = (req, res) => {
     req.flash('success', "Goodbye!");
     res.redirect('/campgrounds');
 }
+
 module.exports.renderForgot = (req, res) => {
     res.render('users/forgot');
 };
@@ -97,6 +98,7 @@ module.exports.forgot = (req, res, next) => {
         res.redirect('/forgot');
     });
 };
+
 module.exports.renderReset = async (req, res) => {
     let user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
     if (!user) {
@@ -155,7 +157,6 @@ module.exports.reset = (req, res) => {
         res.redirect('/campgrounds');
     });
 };
-
 
 const capitalize = (s) => {
     if (typeof s !== 'string') return ''

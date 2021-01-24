@@ -38,7 +38,7 @@ const CampgroundSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    createdAt : {
+    createdAt: {
         type: Date,
         default: Date.now
     },

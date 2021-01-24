@@ -48,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(mongoSanitize({
     replaceWith: '_'
 }))
+
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 
 const store = new MongoDBStore({
@@ -78,7 +79,6 @@ app.use(session(sessionConfig));
 app.use(flash());
 app.use(helmet());
 
-
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
     "https://api.tiles.mapbox.com/",
@@ -104,6 +104,7 @@ const connectSrcUrls = [
     "https://events.mapbox.com/",
 ];
 const fontSrcUrls = ["https://use.fontawesome.com/releases/v5.7.1/"];
+
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -126,7 +127,6 @@ app.use(
     })
 );
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -145,16 +145,13 @@ app.use((req, res, next) => {
     next();
 })
 
-
 app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:slug/reviews', reviewRoutes)
 
-
 app.get('/', (req, res) => {
     res.render('home')
 });
-
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));

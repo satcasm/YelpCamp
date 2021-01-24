@@ -2,7 +2,7 @@ const Campground = require('../models/campground');
 const Review = require('../models/review');
 
 module.exports.createReview = async (req, res) => {
-    const campground = await  Campground.findOne({slug: req.params.slug});
+    const campground = await Campground.findOne({ slug: req.params.slug });
     const review = new Review(req.body.review);
     review.author = req.user._id;
     campground.reviews.push(review);
@@ -14,7 +14,7 @@ module.exports.createReview = async (req, res) => {
 
 module.exports.deleteReview = async (req, res) => {
     const { slug, reviewId } = req.params;
-    await Campground.findOneAndUpdate({slug}, { $pull: { reviews: reviewId } });
+    await Campground.findOneAndUpdate({ slug }, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     req.flash('success', 'Successfully deleted review')
     res.redirect(`/campgrounds/${slug}`);

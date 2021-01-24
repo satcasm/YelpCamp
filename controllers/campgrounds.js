@@ -5,7 +5,6 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const ExpressError = require('../utils/ExpressError');
 const { cloudinary } = require("../cloudinary");
 
-
 module.exports.index = async (req, res) => {
     let noMatch = null;
     if (req.query.search) {
@@ -45,7 +44,7 @@ module.exports.createCampground = async (req, res, next) => {
 module.exports.showCampground = async (req, res,) => {
     const campground = await Campground.findOne({ slug: req.params.slug }).populate({
         path: 'reviews',
-        options: {sort: {createdAt: -1}},
+        options: { sort: { createdAt: -1 } },
         populate: {
             path: 'author'
         }
@@ -70,7 +69,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateCampground = async (req, res, next) => {
     const { slug } = req.params;
     const campground = await Campground.findOne({ slug });
-    if(campground.location!== req.body.campground.location){
+    if (campground.location !== req.body.campground.location) {
         const geoData = await geocoder.forwardGeocode({
             query: req.body.campground.location,
             limit: 1
@@ -111,7 +110,7 @@ module.exports.deleteCampground = async (req, res) => {
 }
 
 module.exports.likeCampground = async (req, res) => {
-    let foundCampground= await Campground.findOne({slug: req.params.slug});
+    let foundCampground = await Campground.findOne({ slug: req.params.slug });
     // check if req.user._id exists in foundCampground.likes
     let foundUserLike = await foundCampground.likes.some(function (like) {
         return like.equals(req.user._id);
