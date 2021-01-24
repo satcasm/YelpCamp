@@ -127,7 +127,6 @@ module.exports.reset = (req, res) => {
                         });
                     })
                 } else {
-                    console.log("wrong1!");
                     req.flash("error", "Passwords do not match.");
                     return res.redirect(`/reset/${req.params.token}`);
                 }
