@@ -110,6 +110,21 @@ module.exports.deleteCampground = async (req, res) => {
     res.redirect('/campgrounds');
 }
 
+module.exports.likeCampground = async (req, res) => {
+    let foundCampground= await Campground.findOne({slug: req.params.slug});
+    // check if req.user._id exists in foundCampground.likes
+    let foundUserLike = await foundCampground.likes.some(function (like) {
+        return like.equals(req.user._id);
+    });
+    if (foundUserLike) {
+        foundCampground.likes.pull(req.user._id);
+    } else {
+        foundCampground.likes.push(req.user);
+    }
+    await foundCampground.save();
+    res.redirect("/campgrounds/" + foundCampground.slug);
+}
+
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
