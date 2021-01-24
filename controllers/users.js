@@ -31,6 +31,8 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = (req, res) => {
     const name = capitalize(req.user.username);
     req.flash('success', `Welcome Back, ${name}!`);
+    if(check(req.session.returnTo))
+        req.session.returnTo = extract(req.session.returnTo);
     const redirectUrl = req.session.returnTo || '/campgrounds';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
@@ -160,4 +162,14 @@ module.exports.reset = (req, res) => {
 const capitalize = (s) => {
     if (typeof s !== 'string') return ''
     return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+const check = (text) => {
+    const patt = new RegExp("\/campgrounds\/[^\/]+\/like");
+    return patt.test(text);
+}
+const extract = (str) => {
+    const rx = new RegExp("\/campgrounds\/[^\/]+");
+    const arr = rx.exec(str);
+    return arr[0]; 
 }

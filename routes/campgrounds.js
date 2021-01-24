@@ -39,6 +39,6 @@ router.route('/:slug')
 
 router.get('/:slug/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm))
 
-router.post("/:slug/like", isLoggedIn, catchAsync(campgrounds.likeCampground));
+router.post("/:slug/like", isLoggedIn, catchAsync(campgrounds.likeCampground)); 
 
 module.exports = router;
