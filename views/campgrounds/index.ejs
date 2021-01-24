@@ -28,7 +28,6 @@
                 <form action="/campgrounds" method="GET" class="form-inline mb-3">
                     <div class="input-group">
                         <input type="text" name="search" placeholder="Campground search..." class="form-control">
-                        <!-- <button type="submit" class="btn btn-primary">Search</button> -->
                         <div class="input-group-append">
                             <button class="btn btn-primary">Search</button>
                         </div>
@@ -81,7 +80,7 @@
         </main>
         <script>
             const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-            const campgrounds = { features: <%-JSON.stringify(campgrounds) %>}
+            const campgrounds = { features: <%- JSON.stringify(campgrounds) %>}
         </script>
 
         <script src="/javascripts/clusterMap.js"></script>

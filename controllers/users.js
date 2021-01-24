@@ -98,7 +98,7 @@ module.exports.forgot = (req, res, next) => {
     });
 };
 module.exports.renderReset = async (req, res) => {
-    let user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });//.exec((err, user)=>{
+    let user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
     if (!user) {
         req.flash('error', 'Password reset token is invalid or has expired.');
         return res.redirect('/forgot');

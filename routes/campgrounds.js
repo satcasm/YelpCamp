@@ -40,16 +40,13 @@ router.get('/:slug/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEdi
 router.post("/:slug/like",isLoggedIn, async (req, res)=> {
 	try{
 		let foundCampground= await Campground.findOne({slug: req.params.slug});
-		//console.log(foundCampground);
         // check if req.user._id exists in foundCampground.likes
         let foundUserLike = await foundCampground.likes.some(function (like) {
             return like.equals(req.user._id);
         });
         if (foundUserLike) {
-            // user already liked, removing like
             foundCampground.likes.pull(req.user._id);
         } else {
-            // adding the new user like
             foundCampground.likes.push(req.user);
         }
         await foundCampground.save();
